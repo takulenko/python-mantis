@@ -1,6 +1,5 @@
 import random
 import string
-import time
 from model.project import Project
 
 
@@ -10,8 +9,6 @@ def random_string(prefix, maxlen):
 
 
 def test_add_project(app):
-    app.session.login("administrator", "root")
-    time.sleep(5)
     old_list = app.project.get_project_list()
     project = Project(name=random_string("name", 10), description=random_string("description", 20))
     app.project.create(project)

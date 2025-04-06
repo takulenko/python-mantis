@@ -9,7 +9,7 @@ class ProjectHelper:
     def open_project_page(self):
         wd = self.app.wd
         if not (wd.current_url.endswith("/manage_proj_page.php")):
-            wd.get("http://localhost/mantisbt-1.2.20/manage_proj_page.php")
+            wd.get(self.app.base_url + "/manage_proj_page.php")
             # wd.find_element_by_link_text("Manage Projects").click()
 
     def create(self, project):
@@ -40,7 +40,7 @@ class ProjectHelper:
         for element in wd.find_elements_by_xpath("//td/a[contains(@href,'manage_proj_edit_page.php?project_id=')]"):
             text = element.text
             id = element.get_attribute("href").split('=')[1]
-            #id = element.get_attribute("href").replace('http://localhost/mantisbt-1.2.20/manage_proj_edit_page.php?project_id=', '')
+            #id = element.get_attribute("href").replace(self.app.base_url + '/manage_proj_edit_page.php?project_id=', '')
             self.project_cashe.append(Project(name=text, id=id))
         return list(self.project_cashe)
 
@@ -55,4 +55,4 @@ class ProjectHelper:
 
     def open_project_id_page(self, id):
         wd = self.app.wd
-        wd.get('http://localhost/mantisbt-1.2.20/manage_proj_edit_page.php?project_id=' + id)
+        wd.get(self.app.base_url + "/manage_proj_edit_page.php?project_id=" + id)
